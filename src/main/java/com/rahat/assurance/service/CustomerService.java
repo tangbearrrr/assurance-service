@@ -1,10 +1,11 @@
 package com.rahat.assurance.service;
 
+import com.rahat.assurance.constant.ErrorCodeEnum;
+import com.rahat.assurance.exception.RecordNotFoundException;
 import com.rahat.assurance.model.Customer;
 import com.rahat.assurance.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @Service
@@ -16,7 +17,7 @@ public class CustomerService {
 
     public Customer findById(String id) {
         return customerRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new RecordNotFoundException(ErrorCodeEnum.RECORD_NOT_FOUND.getMessage()));
     }
 
     public Customer create(Customer customer) {
