@@ -17,4 +17,5 @@ public class Customer {
     private String mobileNo;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String imageUrl;
+    private String status;
 }

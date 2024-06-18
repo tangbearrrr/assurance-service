@@ -47,4 +47,9 @@ public class CustomerController {
                                               @RequestParam(value = "file") MultipartFile file) {
         return ResponseEntity.ok(s3Service.uploadFileToS3(id, file));
     }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Customer> updateStatus(@PathVariable String id, @RequestParam(value = "status") String status) {
+        return ResponseEntity.ok(customerService.updateStatus(id, status));
+    }
 }

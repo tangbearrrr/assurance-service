@@ -1,7 +1,9 @@
 package com.rahat.assurance.service;
 
 import com.rahat.assurance.constant.ErrorCodeEnum;
+import com.rahat.assurance.constant.StatusEnum;
 import com.rahat.assurance.exception.RecordNotFoundException;
+import com.rahat.assurance.exception.ValidateException;
 import com.rahat.assurance.model.Customer;
 import com.rahat.assurance.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,7 @@ public class CustomerService {
     }
 
     public Customer create(Customer customer) {
+        customer.setStatus(StatusEnum.PENDING.getMessage());
         return customerRepository.save(customer);
     }
 
@@ -33,5 +36,19 @@ public class CustomerService {
     public void delete(String id) {
         findById(id);
         customerRepository.deleteById(id);
+    }
+
+    public Customer updateStatus(String id, String status) {
+        validateStatus(status);
+
+        Customer customer = findById(id);
+        customer.setStatus(status.toUpperCase());
+        return customerRepository.save(customer);
+    }
+
+    private void validateStatus(String status) {
+        if (!StatusEnum.APPROVE.getMessage().equalsIgnoreCase(status) && !StatusEnum.REJECT.getMessage().equalsIgnoreCase(status)) {
+            throw new ValidateException(ErrorCodeEnum.INVALID_STATUS.getMessage());
+        }
     }
 }
