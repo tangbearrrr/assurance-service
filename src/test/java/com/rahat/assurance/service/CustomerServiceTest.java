@@ -2,7 +2,6 @@ package com.rahat.assurance.service;
 
 import com.rahat.assurance.model.Customer;
 import com.rahat.assurance.repository.CustomerRepository;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@RequiredArgsConstructor
 public class CustomerServiceTest {
 
     private CustomerService customerService;

@@ -1,6 +1,7 @@
 package com.rahat.assurance.controller;
 
 import com.rahat.assurance.model.Customer;
+import com.rahat.assurance.model.SuccessResponse;
 import com.rahat.assurance.service.CustomerService;
 import com.rahat.assurance.service.S3Service;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,10 @@ public class CustomerController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> findById(@PathVariable String id) {
-        return ResponseEntity.ok(customerService.findById(id));
+    public ResponseEntity<SuccessResponse> findById(@PathVariable String id) {
+        return ResponseEntity.ok(SuccessResponse.builder()
+                .data(customerService.findById(id))
+                .build());
     }
 
     @PostMapping
