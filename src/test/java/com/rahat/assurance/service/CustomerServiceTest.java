@@ -21,14 +21,11 @@ public class CustomerServiceTest {
     @Mock
     private CustomerRepository customerRepository;
 
-    @Mock
-    private S3Service s3Service;
-
     Customer customer1;
 
     @BeforeEach
     void setup() {
-        customerService = new CustomerService(customerRepository, s3Service);
+        customerService = new CustomerService(customerRepository);
 
         customer1 = new Customer();
         customer1.setId("1");

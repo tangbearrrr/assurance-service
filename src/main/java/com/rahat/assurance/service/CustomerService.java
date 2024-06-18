@@ -15,8 +15,6 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
 
-    private final S3Service s3Service;
-
     public Customer findById(String id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(ErrorCodeEnum.RECORD_NOT_FOUND.getMessage()));
