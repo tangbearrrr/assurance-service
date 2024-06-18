@@ -30,12 +30,7 @@ public class CustomerService {
     }
 
     public void delete(String id) {
+        findById(id);
         customerRepository.deleteById(id);
-    }
-
-    public Customer updatePhoto(String id, MultipartFile file) {
-        Customer customer = findById(id);
-        customer.setImageUrl(s3Service.uploadFileToS3(id, file));
-        return customerRepository.save(customer);
     }
 }
