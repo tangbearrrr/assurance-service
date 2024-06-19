@@ -6,6 +6,7 @@ services:
       - "8080:8080"
     environment:
       - SPRING_ELASTICSEARCH_URIS=elasticsearch:9200
+    restart: always
     depends_on:
       - elasticsearch
   elasticsearch:
@@ -17,3 +18,8 @@ services:
       - xpack.license.self_generated.type=trial
     ports:
       - 9200:9200
+    healthcheck:
+      test: curl -s http://elasticsearch01:9200 >/dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 50
