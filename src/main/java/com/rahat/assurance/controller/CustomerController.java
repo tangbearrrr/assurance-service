@@ -27,29 +27,39 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> register(@RequestBody Customer request) {
-        return ResponseEntity.ok(customerService.create(request));
+    public ResponseEntity<SuccessResponse> register(@RequestBody Customer request) {
+        return ResponseEntity.ok(SuccessResponse.builder()
+                .data(customerService.create(request))
+                .build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> update(@RequestBody Customer request, @PathVariable String id) {
-        return ResponseEntity.ok(customerService.update(id, request));
+    public ResponseEntity<SuccessResponse> update(@RequestBody Customer request, @PathVariable String id) {
+        return ResponseEntity.ok(SuccessResponse.builder()
+                .data(customerService.update(id, request))
+                .build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Customer> delete(@PathVariable String id) {
+    public ResponseEntity<SuccessResponse> delete(@PathVariable String id) {
         customerService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(SuccessResponse.builder()
+                .data("Success")
+                .build());
     }
 
     @PostMapping("/{id}/photos")
-    public ResponseEntity<String> uploadPhoto(@PathVariable String id,
-                                              @RequestParam(value = "file") MultipartFile file) {
-        return ResponseEntity.ok(s3Service.uploadFileToS3(id, file));
+    public ResponseEntity<SuccessResponse> uploadPhoto(@PathVariable String id,
+                                                       @RequestParam(value = "file") MultipartFile file) {
+        return ResponseEntity.ok((SuccessResponse.builder()
+                .data(s3Service.uploadFileToS3(id, file))
+                .build()));
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Customer> updateStatus(@PathVariable String id, @RequestParam(value = "status") String status) {
-        return ResponseEntity.ok(customerService.updateStatus(id, status));
+    public ResponseEntity<SuccessResponse> updateStatus(@PathVariable String id, @RequestParam(value = "status") String status) {
+        return ResponseEntity.ok(SuccessResponse.builder()
+                .data(customerService.updateStatus(id, status))
+                .build());
     }
 }
