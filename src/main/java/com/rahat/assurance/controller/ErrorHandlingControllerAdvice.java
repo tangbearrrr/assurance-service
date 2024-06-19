@@ -2,7 +2,7 @@ package com.rahat.assurance.controller;
 
 import com.rahat.assurance.constant.ErrorCodeEnum;
 import com.rahat.assurance.exception.RecordNotFoundException;
-import com.rahat.assurance.exception.ValidateException;
+import com.rahat.assurance.exception.InvalidStatusException;
 import com.rahat.assurance.model.Error;
 import com.rahat.assurance.model.ErrorResponse;
 import org.springframework.http.HttpHeaders;
@@ -37,8 +37,8 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
         return handle(HttpStatus.BAD_REQUEST, ErrorCodeEnum.RECORD_NOT_FOUND.getCode(), ex.getMessage());
     }
 
-    @ExceptionHandler(ValidateException.class)
-    protected ResponseEntity handle(ValidateException ex) {
+    @ExceptionHandler(InvalidStatusException.class)
+    protected ResponseEntity handle(InvalidStatusException ex) {
         return handle(HttpStatus.BAD_REQUEST, ErrorCodeEnum.INVALID_STATUS.getCode(), ex.getMessage());
     }
 }

@@ -3,7 +3,7 @@ package com.rahat.assurance.service;
 import com.rahat.assurance.constant.ErrorCodeEnum;
 import com.rahat.assurance.constant.StatusEnum;
 import com.rahat.assurance.exception.RecordNotFoundException;
-import com.rahat.assurance.exception.ValidateException;
+import com.rahat.assurance.exception.InvalidStatusException;
 import com.rahat.assurance.model.Customer;
 import com.rahat.assurance.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
@@ -46,7 +46,7 @@ public class CustomerService {
 
     private void validateStatus(String status) {
         if (!StatusEnum.APPROVE.getMessage().equalsIgnoreCase(status) && !StatusEnum.REJECT.getMessage().equalsIgnoreCase(status)) {
-            throw new ValidateException(ErrorCodeEnum.INVALID_STATUS.getMessage());
+            throw new InvalidStatusException(ErrorCodeEnum.INVALID_STATUS.getMessage());
         }
     }
 }
