@@ -4,6 +4,7 @@ import com.rahat.assurance.model.Customer;
 import com.rahat.assurance.model.SuccessResponse;
 import com.rahat.assurance.service.CustomerService;
 import com.rahat.assurance.service.S3Service;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +28,14 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<SuccessResponse> register(@RequestBody Customer request) {
+    public ResponseEntity<SuccessResponse> register(@Valid @RequestBody Customer request) {
         return ResponseEntity.ok(SuccessResponse.builder()
                 .data(customerService.create(request))
                 .build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SuccessResponse> update(@RequestBody Customer request, @PathVariable String id) {
+    public ResponseEntity<SuccessResponse> update(@Valid @RequestBody Customer request, @PathVariable String id) {
         return ResponseEntity.ok(SuccessResponse.builder()
                 .data(customerService.update(id, request))
                 .build());
@@ -56,8 +57,8 @@ public class CustomerController {
                 .build()));
     }
 
-    @PutMapping("/{id}/status")
-    public ResponseEntity<SuccessResponse> updateStatus(@PathVariable String id, @RequestParam(value = "status") String status) {
+    @PutMapping("/{id}/status/{status}")
+    public ResponseEntity<SuccessResponse> updateStatus(@PathVariable String id, @PathVariable String status) {
         return ResponseEntity.ok(SuccessResponse.builder()
                 .data(customerService.updateStatus(id, status))
                 .build());

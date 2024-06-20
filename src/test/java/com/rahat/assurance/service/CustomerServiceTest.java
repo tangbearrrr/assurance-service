@@ -1,5 +1,6 @@
 package com.rahat.assurance.service;
 
+import com.rahat.assurance.exception.InvalidStatusException;
 import com.rahat.assurance.model.Customer;
 import com.rahat.assurance.repository.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,5 +79,36 @@ public class CustomerServiceTest {
         customerService.delete("1");
 
         verify(customerRepository).deleteById(anyString());
+    }
+
+    @Test
+    void shouldUpdateStatusApproveSuccess() {
+
+        Customer expect = new Customer();
+        expect.setStatus("APPROVE");
+
+        when(customerRepository.findById(anyString())).thenReturn(Optional.ofNullable(customer1));
+        when(customerRepository.save(any())).thenReturn(expect);
+        Customer result = customerService.updateStatus("1", "approve");
+
+        assertEquals(expect.getStatus(), result.getStatus());
+    }
+
+    @Test
+    void shouldUpdateStatusRejectSuccess() {
+
+        Customer expect = new Customer();
+        expect.setStatus("REJECT");
+
+        when(customerRepository.findById(anyString())).thenReturn(Optional.ofNullable(customer1));
+        when(customerRepository.save(any())).thenReturn(expect);
+        Customer result = customerService.updateStatus("1", "reject");
+
+        assertEquals(expect.getStatus(), result.getStatus());
+    }
+
+    @Test
+    void shouldUpdateStatusFail() {
+        assertThrows(InvalidStatusException.class, () -> customerService.updateStatus("1", "abc"));
     }
 }

@@ -38,7 +38,6 @@ public class CustomerService {
 
     public Customer updateStatus(String id, String status) {
         validateStatus(status);
-
         Customer customer = findById(id);
         customer.setStatus(status.toUpperCase());
         return customerRepository.save(customer);
@@ -48,5 +47,6 @@ public class CustomerService {
         if (!StatusEnum.APPROVE.getMessage().equalsIgnoreCase(status) && !StatusEnum.REJECT.getMessage().equalsIgnoreCase(status)) {
             throw new InvalidStatusException(ErrorCodeEnum.INVALID_STATUS.getMessage());
         }
+
     }
 }

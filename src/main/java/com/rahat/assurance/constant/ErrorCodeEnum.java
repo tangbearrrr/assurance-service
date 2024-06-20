@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum ErrorCodeEnum {
 
     RECORD_NOT_FOUND(1001,"Record not found"),
-    INVALID_STATUS(1002,"Status must be approve or reject");
+    INVALID_STATUS(1002,"Status must be approve or reject"),
+    INVALID_DATA(1003, "Invalid Data");
 
     private final int code;
     private final String message;

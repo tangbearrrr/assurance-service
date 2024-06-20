@@ -62,11 +62,12 @@ public class CustomerControllerTest {
         mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "    \"firstName\" : \"Rahat\",\n" +
-                                "    \"lastName\" : \"Sarawasee\",\n" +
+                                "    \"first_name\" : \"Rahat\",\n" +
+                                "    \"last_name\" : \"Sarawasee\",\n" +
                                 "    \"address\" : \"44/20 Nimitmai 12\",\n" +
-                                "    \"mobileNo\" : \"0970974974\",\n" +
-                                "    \"imageUrl\" : \"https://customer-assurance.s3.amazonaws.com/photos/driveuploadbot.jpg\"\n" +
+                                "    \"mobile_no\" : \"0970974974\",\n" +
+                                "    \"email\" : \"spz8th@gmail.com\",\n" +
+                                "    \"image_url\" : \"https://customer-assurance.s3.amazonaws.com/photos/driveuploadbot.jpg\"\n" +
                                 "}"))
                 .andExpect(status().isOk());
     }
@@ -78,11 +79,12 @@ public class CustomerControllerTest {
         mvc.perform(put(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "    \"firstName\" : \"Rahat\",\n" +
-                                "    \"lastName\" : \"Sarawasee\",\n" +
+                                "    \"first_name\" : \"Rahat\",\n" +
+                                "    \"last_name\" : \"Sarawasee\",\n" +
                                 "    \"address\" : \"44/20 Nimitmai 12\",\n" +
-                                "    \"mobileNo\" : \"0970974974\",\n" +
-                                "    \"imageUrl\" : \"https://customer-assurance.s3.amazonaws.com/photos/driveuploadbot.jpg\"\n" +
+                                "    \"mobile_no\" : \"0970974974\",\n" +
+                                "    \"email\" : \"spz8th@gmail.com\",\n" +
+                                "    \"image_url\" : \"https://customer-assurance.s3.amazonaws.com/photos/driveuploadbot.jpg\"\n" +
                                 "}"))
                 .andExpect(status().isOk());
     }
@@ -103,5 +105,31 @@ public class CustomerControllerTest {
 
         mvc.perform(multipart(url).file(file).param("file", "filename.png"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldUpdateStatusSuccess() throws Exception {
+        String url = "/api/v1/customers/1/status/approve";
+
+        mvc.perform(put(url)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+
+    @Test
+    void shouldCreateCustomerFail() throws Exception {
+        String url = "/api/v1/customers";
+
+        mvc.perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "    \"firstName\" : \"\",\n" +
+                                "    \"lastName\" : \"\",\n" +
+                                "    \"address\" : \"\",\n" +
+                                "    \"mobileNo\" : \"\",\n" +
+                                "    \"imageUrl\" : \"\"\n" +
+                                "}"))
+                .andExpect(status().isBadRequest());
     }
 }

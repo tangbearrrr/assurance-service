@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -40,5 +41,10 @@ public class ErrorHandlingControllerAdvice extends ResponseEntityExceptionHandle
     @ExceptionHandler(InvalidStatusException.class)
     protected ResponseEntity handle(InvalidStatusException ex) {
         return handle(HttpStatus.BAD_REQUEST, ErrorCodeEnum.INVALID_STATUS.getCode(), ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity handle(MethodArgumentNotValidException ex) {
+        return handle(HttpStatus.BAD_REQUEST, ErrorCodeEnum.INVALID_DATA.getCode(), ex.getMessage());
     }
 }
