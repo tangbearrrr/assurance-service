@@ -27,3 +27,4 @@ api returns the following status codes in its API:
 | :--- | :--- |
 | 1001 | `Record not found` |
 | 1002 | `Status must be approve or reject` |
+| 1003 | `Invalid Data` |
