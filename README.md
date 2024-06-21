@@ -30,4 +30,4 @@ api returns the following status codes in its API:
 | 1003 | `Invalid Data` |
 
 ## Architecture Diagram
-![alt text](https://ibb.co/ZNFsjG3)
+![alt text](https://i.postimg.cc/MGR9kwz0/Blank-diagram.png)
